@@ -1,0 +1,21 @@
+# Web Server & REST API Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.12
+pydantic>=2.9.0
+
+# LLM & Agentic AI Engine (Groq + LangChain)
+groq>=0.18.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-groq>=0.2.0
+
+# Multimodal Image Processing
+pillow>=10.4.0
+
+# Configuration & Utilities
+python-dotenv>=1.0.1
+requests>=2.32.0
+
+# Optional Streamlit Prototype Interface
+streamlit>=1.38.0

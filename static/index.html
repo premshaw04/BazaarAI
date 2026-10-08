@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BazaarAi — Shop Smarter with AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/jpeg" href="/static/images/bazaar_emblem.jpg">
+  <link rel="apple-touch-icon" href="/static/images/bazaar_emblem.jpg">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-logo">
+            <img src="/static/images/bazaar_emblem.jpg" alt="BazaarAi" class="brand-emblem-img">
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">BazaarAi</span>
+            <span class="brand-subtitle">Shop Smarter with AI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Chat Button -->
+      <button class="new-chat-btn" id="newChatBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="plus-icon">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>New Chat</span>
+      </button>
+
+      <!-- Search Bar -->
+      <div class="search-box" id="searchChatsBtn">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span class="search-placeholder">Search chats</span>
+        <kbd class="shortcut-badge">⌘ K</kbd>
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" id="navHome" data-nav="home">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="#" class="nav-item" id="navShopByImage">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+          <span>Shop by Image</span>
+        </a>
+        <a href="#" class="nav-item" id="navCategories">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Categories</span>
+        </a>
+        <a href="#" class="nav-item" id="navOrders">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="21 8 21 21 3 21 3 8"></polyline>
+            <rect x="1" y="3" width="22" height="5"></rect>
+            <line x1="10" y1="12" x2="14" y2="12"></line>
+          </svg>
+          <span>Orders</span>
+        </a>
+        <a href="#" class="nav-item" id="navWishlist">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span>Wishlist</span>
+        </a>
+        <a href="#" class="nav-item" id="navHistory">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>History</span>
+        </a>
+      </nav>
+
+      <!-- Real Dynamic Chats (No Dummy Data) -->
+      <div class="recent-chats-section">
+        <div class="recent-chats-header">
+          <span>Recent Chats</span>
+          <button class="see-all-btn" id="clearHistoryBtn" title="Clear all history">Clear all</button>
+        </div>
+        <div class="recent-chats-list" id="recentChatsList">
+          <div class="empty-chats-hint">No recent chats yet. Start a conversation!</div>
+        </div>
+      </div>
+
+      <!-- User Profile Footer -->
+      <div class="user-profile-footer">
+        <div class="user-avatar">P</div>
+        <div class="user-details">
+          <span class="user-name">Prem Kumar</span>
+          <span class="user-email">prem@gmail.com</span>
+        </div>
+        <button class="settings-gear-btn" id="openSettingsBtn" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN VIEW AREA -->
+    <main class="main-content">
+      <!-- TOP NAVIGATION BAR -->
+      <header class="top-nav">
+        <div class="assistant-selector">
+          <button class="selector-btn" id="modelSelectorBtn">
+            <span class="agent-pulse-dot"></span>
+            <span>Autonomous Shopping Agent</span>
+            <svg class="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="top-actions">
+          <button class="icon-action-btn" id="notificationsBtn" title="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notification-dot"></span>
+          </button>
+
+          <button class="icon-action-btn cart-btn" id="openCartBtn" title="Shopping Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="cart-badge" id="cartBadgeCount">3</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ================================================================= -->
+      <!-- 1. HOME VIEW (Matches New Reference Design)                      -->
+      <!-- ================================================================= -->
+      <section class="view-section active" id="homeView">
+        <div class="home-scroll-container">
+          <!-- Hero Section -->
+          <div class="home-hero-section">
+            <div class="hero-left-content">
+              <div class="hero-brand-pill">
+                <img src="/static/images/bazaar_emblem.jpg" alt="BazaarAi" class="hero-brand-pill-img">
+                <span>BazaarAi &bull; Official AI Shopping Assistant</span>
+              </div>
+              <div class="hero-personal-tag">Y O U R &nbsp; P E R S O N A L</div>
+              <h1 class="hero-main-title">
+                AI Shopping <span>Assistant</span>
+              </h1>
+              <p class="hero-subtext">Search, compare and find the best products just for you.</p>
+
+              <!-- Value Proposition Badges -->
+              <div class="hero-pills-row">
+                <div class="hero-pill-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                  <span>Smart Recommendations</span>
+                </div>
+                <div class="hero-pill-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  <span>Best Prices</span>
+                </div>
+                <div class="hero-pill-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                  <span>Track Orders</span>
+                </div>
+                <div class="hero-pill-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                  <span>Personalized Picks</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hero Right Visual Pedestal with Ambient Glow -->
+            <div class="hero-right-visual">
+              <div class="pedestal-ambient-glow"></div>
+              <div class="pedestal-image-card">
+                <img src="/static/images/hero_pedestal.jpg" alt="Luxury Products on Display" class="hero-pedestal-img">
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Central Search Box -->
+          <div class="hero-search-wrapper">
+            <div class="hero-search-bar">
+              <button class="hero-clip-btn" id="heroClipBtn" title="Shop by Image">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                </svg>
+              </button>
+              <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="What are you looking for today?..." autocomplete="off">
+              <div class="hero-search-actions">
+                <button class="hero-mic-btn" id="heroMicBtn" title="Voice Search">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                  </svg>
+                </button>
+                <button class="hero-send-btn" id="heroSendBtn" title="Search">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Action Cards Grid (4 Cards from reference) -->
+          <div class="features-action-grid">
+            <div class="feature-action-card" onclick="openShopByImageModal()">
+              <div class="feature-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+              </div>
+              <div class="feature-text-wrap">
+                <div class="feature-title">Shop by Image</div>
+                <div class="feature-desc">Upload a photo and find similar products</div>
+              </div>
+              <svg class="feature-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+
+            <div class="feature-action-card" onclick="startChatWithQuery('Show me smart recommendations based on popular items')">
+              <div class="feature-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+              <div class="feature-text-wrap">
+                <div class="feature-title">Smart Recommendations</div>
+                <div class="feature-desc">Personalized picks just for you</div>
+              </div>
+              <svg class="feature-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+
+            <div class="feature-action-card" onclick="startChatWithQuery('Compare prices and show highest discounts')">
+              <div class="feature-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+              </div>
+              <div class="feature-text-wrap">
+                <div class="feature-title">Price Comparison</div>
+                <div class="feature-desc">Compare prices and get the best deals</div>
+              </div>
+              <svg class="feature-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+
+            <div class="feature-action-card" onclick="openOrdersModal()">
+              <div class="feature-icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              </div>
+              <div class="feature-text-wrap">
+                <div class="feature-title">Track Orders</div>
+                <div class="feature-desc">Check the status of your orders</div>
+              </div>
+              <svg class="feature-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Popular Categories Section (from reference image) -->
+          <div class="popular-categories-section">
+            <div class="section-header-row">
+              <h2 class="section-serif-title">Popular Categories</h2>
+              <button class="view-all-link" onclick="openDatabaseModal()">View All →</button>
+            </div>
+
+            <div class="categories-carousel-row">
+              <div class="category-block" onclick="startChatWithQuery('Show me electronics and laptops')">
+                <div class="category-img-frame">
+                  <img src="/static/images/cat_electronics.jpg" alt="Electronics" class="cat-img">
+                </div>
+                <div class="cat-label">Electronics</div>
+              </div>
+
+              <div class="category-block" onclick="startChatWithQuery('Show me running shoes and fashion footwear')">
+                <div class="category-img-frame">
+                  <img src="/static/images/cat_fashion.jpg" alt="Fashion" class="cat-img">
+                </div>
+                <div class="cat-label">Fashion</div>
+              </div>
+
+              <div class="category-block" onclick="startChatWithQuery('Show me home and kitchen essentials')">
+                <div class="category-img-frame">
+                  <img src="/static/images/cat_kitchen.jpg" alt="Home & Kitchen" class="cat-img">
+                </div>
+                <div class="cat-label">Home & Kitchen</div>
+              </div>
+
+              <div class="category-block" onclick="startChatWithQuery('Show me beauty and organic personal care')">
+                <div class="category-img-frame">
+                  <img src="/static/images/cat_beauty.jpg" alt="Beauty & Personal Care" class="cat-img">
+                </div>
+                <div class="cat-label">Beauty & Personal Care</div>
+              </div>
+
+              <div class="category-block" onclick="startChatWithQuery('Show me sports, gym running shoes and fitness gear')">
+                <div class="category-img-frame">
+                  <img src="/static/images/cat_fitness.jpg" alt="Sports & Fitness" class="cat-img">
+                </div>
+                <div class="cat-label">Sports & Fitness</div>
+              </div>
+
+              <div class="category-block" onclick="startChatWithQuery('Show me books and magazines')">
+                <div class="category-img-frame">
+                  <img src="/static/images/cat_books.jpg" alt="Books" class="cat-img">
+                </div>
+                <div class="cat-label">Books</div>
+              </div>
+
+              <div class="category-block" onclick="startChatWithQuery('Show me gaming controllers and toys')">
+                <div class="category-img-frame">
+                  <img src="/static/images/cat_toys.jpg" alt="Toys & Games" class="cat-img">
+                </div>
+                <div class="cat-label">Toys & Games</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- 2. CHAT VIEW (Conversational Shopping Assistant)                  -->
+      <!-- ================================================================= -->
+      <section class="view-section" id="chatView" style="display: none;">
+        <!-- CHAT CONVERSATION CONTAINER -->
+        <div class="chat-container" id="chatContainer">
+          <!-- Initial AI Greeting Message -->
+          <div class="message-row ai-row" id="initialGreetingRow">
+            <div class="avatar ai-avatar">
+              <img src="/static/images/bazaar_emblem.jpg" alt="BazaarAi" class="avatar-emblem-img">
+            </div>
+            <div class="message-bubble-wrapper">
+              <div class="message-bubble ai-bubble intro-bubble">
+                <div class="bubble-title">Hello Prem! 👋</div>
+                <div class="bubble-text">I can help you search, compare and find the best products just for you. What are you looking for today?</div>
+              </div>
+
+              <!-- Suggestion Chips -->
+              <div class="suggestion-chips-row">
+                <button class="chip-btn" data-query="Laptops under ₹60,000">
+                  <span class="chip-icon">💻</span>
+                  <span>Laptops under ₹60,000</span>
+                </button>
+                <button class="chip-btn" data-query="Running shoes for gym">
+                  <span class="chip-icon">👟</span>
+                  <span>Running shoes for gym</span>
+                </button>
+                <button class="chip-btn" data-query="Smartphones under ₹20,000">
+                  <span class="chip-icon">📱</span>
+                  <span>Smartphones under ₹20,000</span>
+                </button>
+                <button class="chip-btn" data-query="Wireless headphones">
+                  <span class="chip-icon">🎧</span>
+                  <span>Wireless headphones</span>
+                </button>
+                <button class="chip-btn" data-query="Home & kitchen essentials">
+                  <span class="chip-icon">🏠</span>
+                  <span>Home & kitchen essentials</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic chat messages inserted here -->
+          <div id="dynamicMessagesContainer"></div>
+        </div>
+
+        <!-- BOTTOM FLOATING INPUT BAR -->
+        <div class="chat-input-wrapper">
+          <div class="chat-input-pill">
+            <button class="clip-attachment-btn" id="attachImageBtn" title="Shop by Image / Attach photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+              </svg>
+            </button>
+            <input type="file" id="hiddenFileInput" accept="image/*" style="display: none;">
+
+            <input type="text" id="chatTextInput" class="chat-text-input" placeholder="Type your message here..." autocomplete="off">
+
+            <button class="send-message-btn" id="sendMessageBtn" title="Send message">
+              <svg class="send-plane-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- PRODUCT DETAILS MODAL -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeProductModal()">×</button>
+      <div class="modal-body" id="productModalBody"></div>
+    </div>
+  </div>
+
+  <!-- SHOPPING CART DRAWER -->
+  <div class="drawer-overlay" id="cartDrawer">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cart-title-icon">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span>Your Cart (<span id="cartItemCountText">3</span> items)</span>
+        </div>
+        <button class="drawer-close-btn" onclick="closeCartDrawer()">×</button>
+      </div>
+      <div class="drawer-items" id="cartItemsList"></div>
+      <div class="drawer-footer">
+        <div class="cart-summary-line">
+          <span>Subtotal</span>
+          <span class="cart-subtotal" id="cartSubtotalText">₹7,997</span>
+        </div>
+        <div class="cart-summary-line delivery">
+          <span>Delivery</span>
+          <span class="free-text">FREE</span>
+        </div>
+        <div class="cart-summary-line total-line">
+          <span>Total</span>
+          <span class="cart-total-price" id="cartTotalText">₹7,997</span>
+        </div>
+        <button class="checkout-submit-btn" id="proceedToCheckoutBtn" onclick="checkoutCart()">
+          <span>Proceed to Checkout</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOP BY IMAGE MODAL -->
+  <div class="modal-overlay" id="shopByImageModal">
+    <div class="modal-card image-upload-modal">
+      <button class="modal-close-btn" onclick="closeShopByImageModal()">×</button>
+      <div class="modal-header">
+        <h2 class="modal-heading">📸 Shop by Image</h2>
+        <p class="modal-subheading">Upload a picture of any item to let BazaarAI scan our catalog and find the best match.</p>
+      </div>
+      <div class="drop-zone" id="dropZone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="upload-cloud-icon">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <p class="drop-text">Drag & drop your product image here, or <span class="browse-link">browse</span></p>
+        <span class="file-hint">Supports JPG, PNG, WEBP</span>
+      </div>
+      <div class="sample-images-section">
+        <div class="sample-title">Or try a sample image:</div>
+        <div class="sample-badges">
+          <button class="sample-badge-btn" onclick="selectSampleImage('honey.png', 'honey')">🍯 Organic Honey</button>
+          <button class="sample-badge-btn" onclick="selectSampleImage('oats.png', 'oats')">🥣 Rolled Oats</button>
+          <button class="sample-badge-btn" onclick="selectSampleImage('nike_revolution_7.jpg', 'Nike Shoes')">👟 Running Shoes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-card settings-card">
+      <button class="modal-close-btn" onclick="closeSettingsModal()">×</button>
+      <div class="modal-header">
+        <h2 class="modal-heading">⚙️ Settings & API Configuration</h2>
+        <p class="modal-subheading">Configure your Groq LLM API Key to power the shopping agent reasoning and vision.</p>
+      </div>
+      <div class="settings-form">
+        <div class="form-group">
+          <label for="groqApiKeyInput">Groq API Key</label>
+          <input type="password" id="groqApiKeyInput" class="settings-input" placeholder="gsk_..." autocomplete="off">
+          <p class="input-hint">Get your free high-speed API key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a></p>
+        </div>
+        <div class="form-group">
+          <label>Agent Model</label>
+          <select id="agentModelSelect" class="settings-input">
+            <option value="qwen/qwen3-32b">Qwen 3 32B (Default)</option>
+            <option value="llama-3.3-70b-versatile">LLaMA 3.3 70B Versatile</option>
+            <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+          </select>
+        </div>
+        <div id="settingsSaveStatus" class="settings-status-msg"></div>
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="closeSettingsModal()">Cancel</button>
+          <button class="btn-primary" onclick="saveSettings()">Save Configuration</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMAND / SEARCH PALETTE (⌘K) -->
+  <div class="modal-overlay" id="searchPaletteModal">
+    <div class="modal-card search-palette-card">
+      <div class="palette-input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="palette-search-icon">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="paletteSearchInput" placeholder="Search products, brands, or past chats..." autofocus>
+        <span class="esc-badge">ESC</span>
+      </div>
+      <div class="palette-results" id="paletteResults"></div>
+    </div>
+  </div>
+
+  <!-- DATABASE & PRODUCTS MANAGER MODAL -->
+  <div class="modal-overlay" id="databaseModal">
+    <div class="modal-card database-card" style="max-width: 880px; max-height: 85vh; display: flex; flex-direction: column;">
+      <button class="modal-close-btn" onclick="closeDatabaseModal()">×</button>
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: flex-start; padding-right: 30px;">
+        <div>
+          <h2 class="modal-heading">🗄️ Store Database Manager</h2>
+          <p class="modal-subheading" style="margin-bottom: 12px;">Browse, search, and manage products stored in <code>store.db</code></p>
+        </div>
+        <button class="btn-primary" style="padding: 8px 16px; font-size: 13px;" onclick="toggleAddProductForm()">
+          + Add Product
+        </button>
+      </div>
+
+      <!-- Add Product Form (Collapsed by default) -->
+      <div id="addProductFormContainer" style="display: none; background: #22201c; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+        <h4 style="color: var(--accent-gold); margin-bottom: 12px;">Add New Product to Database</h4>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+          <input type="text" id="newProdName" class="settings-input" placeholder="Product Name *" required>
+          <select id="newProdCategory" class="settings-input">
+            <option value="shoes">Shoes</option>
+            <option value="laptops">Laptops</option>
+            <option value="smartphones">Smartphones</option>
+            <option value="headphones">Headphones</option>
+            <option value="kitchen">Home & Kitchen</option>
+            <option value="smartwatch">Smartwatches</option>
+            <option value="gaming">Gaming</option>
+            <option value="honey">Honey</option>
+            <option value="oil">Oils</option>
+            <option value="nuts">Nuts & Seeds</option>
+            <option value="grains">Grains</option>
+            <option value="tea">Tea & Coffee</option>
+            <option value="general">General</option>
+          </select>
+          <input type="number" id="newProdPrice" class="settings-input" placeholder="Selling Price (₹) *" required>
+          <input type="number" id="newProdMrp" class="settings-input" placeholder="MRP Price (₹)">
+          <input type="text" id="newProdBrand" class="settings-input" placeholder="Brand Name">
+          <input type="number" step="0.1" id="newProdRating" class="settings-input" placeholder="Rating (e.g. 4.5)" value="4.5">
+          <input type="text" id="newProdImage" class="settings-input" placeholder="Image URL (e.g. /static/images/nike_revolution_7.jpg)" style="grid-column: span 2;">
+          <input type="text" id="newProdDesc" class="settings-input" placeholder="Short Description" style="grid-column: span 1;">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px;">
+          <button class="btn-secondary" style="padding: 8px 14px; font-size: 13px;" onclick="toggleAddProductForm()">Cancel</button>
+          <button class="btn-primary" style="padding: 8px 16px; font-size: 13px;" onclick="submitNewProduct()">Save to Database</button>
+        </div>
+      </div>
+
+      <!-- Filter & Search Toolbar -->
+      <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center;">
+        <input type="text" id="dbSearchInput" class="settings-input" placeholder="Filter products by name or brand..." style="flex: 1;" oninput="filterDatabaseTable()">
+        <select id="dbCategoryFilter" class="settings-input" style="width: 170px;" onchange="filterDatabaseTable()">
+          <option value="all">All Categories</option>
+          <option value="shoes">Shoes</option>
+          <option value="laptops">Laptops</option>
+          <option value="smartphones">Smartphones</option>
+          <option value="headphones">Headphones</option>
+          <option value="kitchen">Home & Kitchen</option>
+          <option value="smartwatch">Smartwatches</option>
+          <option value="gaming">Gaming</option>
+          <option value="honey">Honey</option>
+          <option value="oil">Oils</option>
+          <option value="nuts">Nuts & Seeds</option>
+          <option value="grains">Grains</option>
+        </select>
+        <span id="dbProductCountBadge" style="color: var(--text-muted); font-size: 12.5px; white-space: nowrap;">Loading...</span>
+      </div>
+
+      <!-- Products Table -->
+      <div style="flex: 1; overflow-y: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: #151412;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border-subtle); background: #1c1b18; color: var(--text-muted);">
+              <th style="padding: 10px 14px;">ID</th>
+              <th style="padding: 10px 14px;">Image</th>
+              <th style="padding: 10px 14px;">Product Name</th>
+              <th style="padding: 10px 14px;">Category</th>
+              <th style="padding: 10px 14px;">Price</th>
+              <th style="padding: 10px 14px;">Rating</th>
+              <th style="padding: 10px 14px; text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="databaseTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDERS HISTORY MODAL -->
+  <div class="modal-overlay" id="ordersModal">
+    <div class="modal-card" style="max-width: 720px; max-height: 80vh; display: flex; flex-direction: column;">
+      <button class="modal-close-btn" onclick="closeOrdersModal()">×</button>
+      <div class="modal-header">
+        <h2 class="modal-heading">📦 Customer Orders</h2>
+        <p class="modal-subheading">Live order records stored in SQLite <code>orders</code> table</p>
+      </div>
+      <div style="flex: 1; overflow-y: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: #151412; margin-top: 10px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border-subtle); background: #1c1b18; color: var(--text-muted);">
+              <th style="padding: 10px 14px;">Order ID</th>
+              <th style="padding: 10px 14px;">Product Name</th>
+              <th style="padding: 10px 14px;">Amount</th>
+              <th style="padding: 10px 14px;">Ordered At</th>
+              <th style="padding: 10px 14px; text-align: right;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
